@@ -33,8 +33,8 @@ import torch
 
 import numpy as np
 
-from utils.helpers import maybe_download
-from utils.layer_factory import conv1x1, conv3x3, CRPBlock
+from refinenet.helpers import maybe_download
+from refinenet.layer_factory import conv1x1, conv3x3, CRPBlock
 
 data_info = {
     7 : 'Person',
