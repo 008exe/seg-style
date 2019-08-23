@@ -7,7 +7,7 @@ This repository contains code for both deep learning networks repositories.
 
 Running demo of this repository can get the result of an input image like picture below.
 
-<img src="./result.jpg" width="480" height="360">
+<img src="./img/rf_lw50_person_result.jpg" width="1200" height="800">
 
 Top left: Original image. Top right: Mask output from light-weight refinenet. Down left: Stylized image output from the style transfer model. Down right: Final output processed with opencv-python.
 
@@ -25,4 +25,4 @@ You can use conda or pip to setup packages. You might need to install [keras-con
 
 ### Real-time captured demo
 
-Run demo.py shows the actual combined process using opencv-python to make the image captured with your camera. For the pretrained light-weight refinenet model, three different models will be downloaded at the first time.
+Run 'demo.py' will take 'tmp.jpg' as input and output results of three different refinenet models. The real-time 'demo_rt.py' shows the actual combined process using opencv-python to make the image captured with your camera. For the pretrained light-weight refinenet model, three different models will be downloaded at the first time.
