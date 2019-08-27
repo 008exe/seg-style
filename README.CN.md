@@ -1,6 +1,6 @@
 # seg-style
 
-[English](./README.md) | **中文**
+[English](https://github.com/wzlyo/seg-style) | **中文**
 
 一种结合了 [Light-Weight Refinenet](https://github.com/DrSleep/light-weight-refinenet) 和 [Fritz Style Transfer Network](https://github.com/fritzlabs/fritz-models/tree/master/style_transfer) 的实时视频人像前后景处理应用。 
 
