@@ -22,7 +22,6 @@ if __name__ == '__main__':
 	session = tf.Session(config=config)
 	KTF.set_session(session)
 
-	#初始化语义分割模型
 	has_cuda = torch.cuda.is_available()
 	n_classes = 7
 	model_inits = {
@@ -38,7 +37,6 @@ if __name__ == '__main__':
 		models[key] = net #dict
 	mnet = models.get('rf_lw50_person')	#choose model
 
-	#初始化风格迁移模型
 	custom_objects = {
 		'InstanceNormalization':
 			InstanceNormalization,
@@ -53,22 +51,19 @@ if __name__ == '__main__':
 	transfer_style = keras.backend.function(inputs, outputs)
 
 	cap = cv2.VideoCapture(0)
-	while True:	#逐帧处理循环
+	while True:
 		ret, frame = cap.read()
 		frame = frame[60:420:,:,:]
 
-		#语义分割
 		seg_inp = torch.tensor(prepare_img(frame).transpose(2, 0, 1)[None]).float()
 		if has_cuda:
 			seg_inp = seg_inp.cuda()
 		seg = mnet(seg_inp)[0].data.cpu().numpy().transpose(1, 2, 0).argmax(axis=2).astype(np.uint8)
 
-		#风格迁移
 		style_inp = np.expand_dims(frame, axis=0)
 		style = transfer_style([style_inp, 1])[0]
 		style = np.uint8(style[0])
 
-		#合并
 		seg = cv2.resize(seg, (640, 360),interpolation = cv2.INTER_LANCZOS4)
 		mask = np.uint8( np.ones((360, 640, 3)) * np.expand_dims(seg, axis=2) * 255 ) / 255
 		masked = np.uint8( (1 - mask) * style + mask * frame )
@@ -76,7 +71,6 @@ if __name__ == '__main__':
 		window34 = np.hstack((style, masked))
 		output = np.vstack((window12, window34))
 
-		#显示
 		cv2.imshow("", cv2.resize(output, (1280, 720)) )
 		if cv2.waitKey(1) & 0xFF == ord('q'): #Press Q to exit
 			break
